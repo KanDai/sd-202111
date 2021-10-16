@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Camera Demo</title>
+</head>
+<body>
+<video id="js-video" style="width: 45%" autoplay playsinline></video>
+<canvas id="js-canvas" style="width: 45%"></canvas>
+<div>
+  <button type="button" id="js-btn">撮影</button>
+</div>
+<script>
+const video = document.getElementById('js-video')
+const btn = document.getElementById('js-btn')
+
+btn.addEventListener('click', () => {
+  const canvas = document.querySelector('#js-canvas')
+  canvas.width = video.clientWidth
+  canvas.height = video.clientHeight
+  const ctx = canvas.getContext('2d')
+  ctx.drawImage(video, 0, 0, canvas.width, canvas.height)
+})
+
+navigator.mediaDevices
+  .getUserMedia({
+    // オーディオは使用しない
+    audio: false,
+    // リアカメラを使用する
+    video: {
+      facingMode: {
+        exact: 'environment'
+      },
+    },
+  })
+  .then(stream => {
+    // video要素にストリームを渡す
+    video.srcObject = stream
+  })
+  .catch(err => {
+    // エラーを処理
+  })
+</script>
+</body>
+</html>

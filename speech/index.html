@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Web Speech API Demo</title>
+</head>
+<body>
+<input type="text" id="js-text" value="ブラウザで音声を再生する"/>
+<button type="button" id="js-speak">再生</button>
+<script>
+const textEl = document.getElementById('js-text')
+const btnSpeak = document.getElementById('js-speak')
+
+btnSpeak.addEventListener('click', () => {
+  const text = textEl.value
+  speechSynthesis.speak(
+    new SpeechSynthesisUtterance(text)
+  )
+})
+</script>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Microphone Demo</title>
+</head>
+<body>
+<div style="padding: 16px; overflow: hidden">
+  <div id="js-num" style="font-size: 48px; text-align: center">0</div>
+  <div id="js-graph" style="width: 0; height: 50px; background-color: #007bff;"></div>
+</div>
+<script>
+const num = document.getElementById('js-num')
+const graph = document.getElementById('js-graph')
+const audioCtx = new (window.AudioContext || window.webkitAudioContext)()
+
+navigator.mediaDevices
+  .getUserMedia({
+    audio: true,
+    video: false
+  })
+  .then(stream => {
+    // マイクから取得した音をWeb Audio APIで使えるオブジェクトに変換
+    const source = audioCtx.createMediaStreamSource(stream)
+
+    // ダイレクトな音声処理ができるオブジェクトを作成
+    const processor = audioCtx.createScriptProcessor(1024, 1, 1)
+
+    source.connect(processor)
+    processor.connect(audioCtx.destination)
+
+    processor.onaudioprocess = ev => {
+      // データを数値化してグラフに反映
+      const amp = ev.inputBuffer.getChannelData(0)
+      const reducer = (accumulator, currentValue) => accumulator + Math.abs(currentValue)
+      const result = Math.round(amp.reduce(reducer) / amp.length * 800)
+      graph.style.width = result + '%'
+      num.innerHTML = result
+    }
+  })
+  .catch(err => {
+    // エラーを処理
+  })
+</script>
+</body>
+</html>

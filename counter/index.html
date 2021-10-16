@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Counter</title>
+<link rel="stylesheet" href="bootstrap.css">
+<!-- アドレスバー等のブラウザのUIを非表示 -->
+<meta name="apple-mobile-web-app-capable" content="yes">
+<!-- default（Safariと同じ） / black（黒） / black-translucent（ステータスバーをコンテンツに含める） -->
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<!-- ホーム画面に表示されるアプリ名 -->
+<meta name="apple-mobile-web-app-title" content="Counter">
+<!-- ホーム画面に表示されるアプリアイコン -->
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<!-- アドレスバーの色を設定 -->
+<meta name="theme-color" content="#007bff"/>
+<!-- ウェブアプリマニフェストの読み込み -->
+<link rel="manifest" href="manifest.json">
+<!-- ServiceWorkerの登録 -->
+<script>
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('sw.js')
+    .then((reg) => console.log('Service worker registered.', reg))
+}
+</script>
+<script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async=""></script>
+<script>
+window.OneSignal = window.OneSignal || []
+OneSignal.push(()=> {
+  OneSignal.init({
+    appId: "cd6981a6-7e91-4e0a-97bd-cf80125f5eef",
+    safari_web_id: "web.onesignal.auto.3fd215f3-eebf-45ec-a840-b342bc8d8df9",
+    notifyButton: {
+      enable: true,
+    },
+  })
+})
+</script>
+</head>
+<body>
+  <div class="container d-flex justify-content-center">
+    <div class="w-75 vh-100 d-flex flex-column justify-content-center">
+      <p id="js-count" class="display-1 text-center"></p>
+      <div class="row mt-4">
+        <div class="col">
+          <input
+            type="button"
+            id="js-btn-plus"
+            class="btn btn-primary btn-lg w-100"
+            value="+"
+          />
+        </div>
+        <div class="col">
+          <input
+            type="button"
+            id="js-btn-minus"
+            class="btn btn-success btn-lg w-100"
+            value="-"
+          />
+        </div>
+      </div>
+      <div class="mt-4 text-center">
+        <input
+          type="button"
+          id="js-btn-reset"
+          class="btn btn-outline-secondary btn-lg"
+          value="reset"
+        />
+      </div>
+    </div>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>
