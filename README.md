@@ -1,4 +1,4 @@
-Software Design 2021年11月号の第2特集、Progressive Web Apps実践入門で使用したサンプルコードです。
+[Software Design 2021年11月号](https://gihyo.jp/magazine/SD/archive/2021/202111)の第2特集、Progressive Web Apps実践入門で使用したサンプルコードです。
 
 ## 第2章　既存のWebアプリをPWA化してみる
 
